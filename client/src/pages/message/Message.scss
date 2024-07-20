@@ -1,6 +1,8 @@
 .message{
     display: flex;
     justify-content: center;
+
+
     .container{
         width: 1000px;
         margin: 50px;
@@ -19,6 +21,7 @@
             height: 500px;
             overflow: scroll;
             overflow-x: hidden;
+            scrollbar-color: transparent transparent;
 
             .item{
                 display: flex;
@@ -53,6 +56,10 @@
                     font-weight: 300;
                 }
             }
+        }
+
+        .messages::-webkit-scrollbar{
+            display: none;
         }
 
         hr{
