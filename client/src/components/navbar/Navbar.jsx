@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useLocation } from "react-router-dom"
+import { Link, useNavigate, useLocation } from "react-router-dom"
 import "./Navbar.scss"
+import newRequest from '../../utils/newRequest'
 
 const Navbar = () => {
 
@@ -20,10 +21,17 @@ const Navbar = () => {
         }
     }, [])
 
-    const currentUser = {
-        id:1,
-        username:"Aldibek",
-        isSeller:true
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"))
+    const navigate = useNavigate()
+
+    const handleLogout = async () => {
+        try {
+            await newRequest.post("/auth/logout")
+            localStorage.setItem("currentUser", null)
+            navigate("/")
+        } catch (err) {
+            console.log(err)
+        }
     }
   
     return (
@@ -36,32 +44,46 @@ const Navbar = () => {
                 <span className='dot'>.com</span>
             </div>
             <div className="links">
-                <span>BeliJasa Bisnis</span>
                 <span>Temukan</span>
-                <span>English</span>
-                <span>Masuk</span>
                 {!currentUser?.isSeller && <span>Menjadi Penjual</span>}
-                {!currentUser && <button>Bergabung</button>}
-                {currentUser && (
-                    <div className="user" onClick={()=>setOpen(!open)}>
-                        <img src="https://i.pinimg.com/564x/df/f2/e5/dff2e51ba3eafe2f231e04c4134f7656.jpg" alt="" />
-                        <span>{currentUser?.username}</span>
-                        {open && <div className="options">
-                            {
-                                currentUser?.isSeller && (
-                                    <>
-                                    <Link className='link' to="/mygigs">Jasa</Link>
-                                    <Link className='link' to="/add">Tambah Jasa </Link>
-                                    </>
-                                )}
-                                <Link className='link' to="/orders">Pesanan</Link>
-                                <Link className='link' to="/messages">Pesan</Link>
-                                <Link className='link'>Keluar</Link>
-                        </div>}
-                    </div>
-                )}
-            </div>    
+                {currentUser ? (
+            <div className="user" onClick={() => setOpen(!open)}>
+              <img src={currentUser.img || "/img/noavatar.jpg"} alt="" />
+              <span>{currentUser?.username}</span>
+              {open && (
+                <div className="options">
+                  {currentUser.isSeller && (
+                    <>
+                      <Link className="link" to="/mygigs">
+                        Jasa
+                      </Link>
+                      <Link className="link" to="/add">
+                        Tambah Jasa
+                      </Link>
+                    </>
+                  )}
+                  <Link className="link" to="/orders">
+                    Pesanan
+                  </Link>
+                  <Link className="link" to="/messages">
+                    Pesan
+                  </Link>
+                  <Link className="link" onClick={handleLogout}>
+                    Keluar
+                  </Link>
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              <Link to="/login" className="link">Masuk</Link>
+              <Link className="link" to="/register">
+                <button>Bergabung</button>
+              </Link>
+            </>
+          )}
         </div>
+      </div>
 
         {(active || pathname !=="/" ) && (
         <>
