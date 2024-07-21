@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./Register.scss";
 import newRequest from "../../utils/newRequest";
 import { useNavigate } from "react-router-dom";
+import upload from "../../utils/upload";
+
 
 function Register() {
   const [file, setFile] = useState(null);
