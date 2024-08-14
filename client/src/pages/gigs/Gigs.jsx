@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import "./Gigs.scss"
 import GigCard from './../../components/gigCard/GigCard'
 import { useQuery } from "@tanstack/react-query"
@@ -13,10 +13,11 @@ const Gigs = () => {
 
   const {search}= useLocation()
 
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, error, data, refetch } = useQuery({
     queryKey: ['repoData'],
     queryFn: () =>
-      newRequest.get(`/gigs${search}`).then(res=>{
+      newRequest.get(`/gigs${search}&min=${minRef.current.value}&max=${maxRef.current.value}&sort=${sort}`
+      ).then(res=>{
         return res.data
       })
   })
@@ -28,6 +29,10 @@ const Gigs = () => {
       setSort(type)
       setOpen(false)
     }
+
+    useEffect(() => {
+      refetch()
+    }, [sort])
 
 
     const apply = () => {
@@ -43,17 +48,20 @@ const Gigs = () => {
         <div className="menu">
           <div className="left">
             <span>Harga</span>
-            <input type="text" placeholder='min' />
-            <input type="text" placeholder='maks' />
-            <button>Terapkan</button>
+            <input ref={minRef} type='number' placeholder='min' />
+            <input ref={maxRef} type='number' placeholder='maks' />
+            <button onClick={apply}>Terapkan</button>
           </div>
           <div className="right">
             <span className='sortBy'>Urutkan</span>
-            <span className='sortType'>{sort === "sales" ? "Penjualan Terbaik" : "Terbaru"}</span>
+            <span className='sortType'>{sort === "sales" ? "Termurah" : "Terbaru"}</span>
             <img src="./img/down.png" alt="" onClick={()=>setOpen(!open)}/>
             {open && (<div className="rightMenu">
-              {sort === "sales" ? (<span onClick={()=>reSort("createdAt")}>Terbaru</span>)
-              : (<span onClick={()=>reSort("sales")}>Penjualan Terbaik</span>)}
+              {sort === "sales" ? (
+                <span onClick={()=>reSort("createdAt")}>Terbaru</span>
+              ) : (
+                <span onClick={()=>reSort("sales")}>Termurah</span>
+              ) }
             </div>)}
           </div>
         </div>
