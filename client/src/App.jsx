@@ -10,7 +10,6 @@ import Add from "./pages/add/Add"
 import Messages from "./pages/messages/Messages"
 import Message from "./pages/message/Message"
 import Login from "./pages/login/Login"
-
 import "./app.scss"
 import {
   createBrowserRouter,
@@ -18,15 +17,25 @@ import {
   Outlet
 } from "react-router-dom";
 import Register from "./pages/register/Register"
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from '@tanstack/react-query'
 
 function App() {
 
   const Layout = ()=>{
+
+    const queryClient = new QueryClient()
+
     return (
       <div className="app">
+        <QueryClientProvider client={queryClient}>
         <Navbar/>
         <Outlet/>
         <Footer/>
+        </QueryClientProvider>
       </div>
     )
   }
