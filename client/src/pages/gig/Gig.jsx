@@ -4,6 +4,7 @@ import { Slider } from "infinite-react-carousel/lib";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
+import Reviews from "../../components/reviews/Reviews";
 
 function Gig() {
 
@@ -112,128 +113,7 @@ function Gig() {
               </p>
             </div>
           </div>)}
-          <div className="reviews">
-            <h2>Ulasan</h2>
-            <div className="item">
-              <div className="user">
-                <img
-                  className="pp"
-                  src="https://images.pexels.com/photos/839586/pexels-photo-839586.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                  alt=""
-                />
-                <div className="info">
-                  <span>Joko Santoso</span>
-                  <div className="country">
-                    <img
-                      src="https://i.pinimg.com/564x/19/25/6f/19256fc3387dc4c7b384e6e8af443d32.jpg"
-                      alt=""
-                    />
-                    <span>Kudus</span>
-                  </div>
-                </div>
-              </div>
-              <div className="stars">
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <span>
-                5
-                </span>
-              </div>
-              <p>
-                bagus anjay
-              </p>
-              <div className="helpful">
-                <span>Membantu?</span>
-                <img src="/img/like.png" alt="" />
-                <span>Ya</span>
-                <img src="/img/dislike.png" alt="" />
-                <span>Tidak</span>
-              </div>
-            </div>
-            <hr />
-            <div className="item">
-              <div className="user">
-                <img
-                  className="pp"
-                  src="https://images.pexels.com/photos/4124367/pexels-photo-4124367.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                  alt=""
-                />
-                <div className="info">
-                  <span>Agus Kopling</span>
-                  <div className="country">
-                    <img
-                      src="https://i.pinimg.com/564x/19/25/6f/19256fc3387dc4c7b384e6e8af443d32.jpg"
-                      alt=""
-                    />
-                    <span>Jepara</span>
-                  </div>
-                </div>
-              </div>
-              <div className="stars">
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <span>5</span>
-              </div>
-              <p>
-                MantabMennnnn!
-              </p>
-              <div className="helpful">
-                <span>Membantu?</span>
-                <img src="/img/like.png" alt="" />
-                <span>Ya</span>
-                <img src="/img/dislike.png" alt="" />
-                <span>Tidak</span>
-              </div>
-            </div>
-            <hr />
-            <div className="item">
-              <div className="user">
-                <img
-                  className="pp"
-                  src="https://images.pexels.com/photos/842980/pexels-photo-842980.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                  alt=""
-                />
-                <div className="info">
-                  <span>Sopo Jarwo </span>
-                  <div className="country">
-                    <img
-                      src="https://i.pinimg.com/564x/19/25/6f/19256fc3387dc4c7b384e6e8af443d32.jpg"
-                      alt=""
-                    />
-                    <span>Rembang</span>
-                  </div>
-                </div>
-              </div>
-              <div className="stars">
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <img src="/img/star.png" alt="" />
-                <span>5</span>
-              </div>
-              <p>
-                Amazing work! Communication was
-                amazing, each and every day he sent me images that I was free to
-                request changes to. They listened, understood, and delivered
-                above and beyond my expectations. I absolutely recommend this
-                gig, and know already that Ill be using it again very very soon
-              </p>
-              <div className="helpful">
-                <span>Membantu?</span>
-                <img src="/img/like.png" alt="" />
-                <span>Ya</span>
-                <img src="/img/dislike.png" alt="" />
-                <span>Tidak</span>
-              </div>
-            </div>
-          </div>
+          <Reviews gigId={id}/>
         </div>
         <div className="right">
           <div className="price">
