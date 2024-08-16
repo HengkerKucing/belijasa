@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #013914;
+  background: linear-gradient(135deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
   color: white;
   position: sticky;
   top: 0;
@@ -10,13 +10,22 @@
   transition: 0.5s all ease;
 
   &.active {
-    background-color: white;
+    background: white;
     color: black;
 
+    .logo {
+      .text {
+        color: black !important;
+      }
+      .dot {
+        color: #C850C0 ;
+      }
+    }
+
     button {
-      background-color: white !important;
-      color: #1dbf73 !important;
-      border: 1px solid #1dbf73 !important;
+      background-color: #4158D0 !important;
+      color: white !important;
+      border: none !important;
     }
   }
 
@@ -32,13 +41,15 @@
       font-weight: bold;
 
       .text {
+        color: white;
       }
 
       .dot {
         font-weight: bold;
-        color: #1dbf73;
+        color: #FFD700;
       }
     }
+
     .links {
       display: flex;
       align-items: center;
@@ -48,6 +59,7 @@
 
       span {
         white-space: nowrap;
+        color: white;
       }
 
       .user {
@@ -89,10 +101,12 @@
         border: 1px solid white;
         background-color: transparent;
         cursor: pointer;
+        transition: all 0.3s ease;
 
         &:hover {
-          background-color: #1dbf73;
-          border-color: #1dbf73;
+          background-color: #FFD700;
+          border-color: #FFD700;
+          color: #4158D0;
         }
       }
     }
@@ -101,8 +115,8 @@
   hr {
     width: calc(100% - 2px);
     height: 0;
-    border-top: 0.5px solid #ebe9e9;
-    border-bottom: 0.5px solid #ebe9e9;
+    border-top: 0.5px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.2);
   }
 
   .menu {
@@ -110,8 +124,18 @@
     padding: 10px 0px;
     display: flex;
     justify-content: space-between;
-    color: gray;
+    color: white;
     font-weight: 300;
     font-family: "Montserrat", sans-serif;
+  }
+
+  &.active {
+    .links span, .menu {
+      color: #4158D0;
+    }
+
+    hr {
+      border-color: #ebe9e9;
+    }
   }
 }

@@ -91,7 +91,7 @@ const Navbar = () => {
             <div className="menu">
             <Link className='link' to="/">Elektronik & Kelistrikan</Link>
             <Link className='link' to="/">Kepelatihan & Mengajar</Link>
-            <Link className='link' to="/">Pijat & Pegal</Link>
+            <Link className='link' to="gigs?cat=design">Design & Kreatif</Link>
             <Link className='link' to="/">Pembuatan Barang</Link>
             <Link className='link' to="/">Bersih-bersih</Link>
             <Link className='link' to="/">Pekerjaan Berat & Kasar</Link>

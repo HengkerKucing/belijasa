@@ -1,10 +1,83 @@
 .reviews {
     margin-top: 50px;
     
+    .add{
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .addForm{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+
+        input, select, button {
+          border: 1px solid #ddd;
+          transition: all 0.3s ease;
+          box-shadow: 0 0 0 0 rgba(29, 191, 115, 0);
+        }
+        
+        input {
+          padding: 20px;
+          border-radius: 4px;
+        
+          &:focus {
+            outline: none;
+            border-color: #1dbf73;
+            box-shadow: 0 0 0 3px rgba(29, 191, 115, 0.3);
+          }
+        
+          &:hover {
+            border-color: #1dbf73;
+          }
+        }
+        
+        select {
+          width: 150px;
+          padding: 20px;
+          align-self: flex-end;
+          border-radius: 4px;
+        
+          &:focus {
+            outline: none;
+            border-color: #1dbf73;
+            box-shadow: 0 0 0 3px rgba(29, 191, 115, 0.3);
+          }
+        
+          &:hover {
+            border-color: #1dbf73;
+          }
+        }
+        
+        button {
+          align-self: flex-end;
+          width: 100px;
+          border: none;
+          padding: 10px;
+          color: white;
+          background-color: #1dbf73;
+          cursor: pointer;
+          border-radius: 4px;
+        
+          &:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(29, 191, 115, 0.3);
+          }
+        
+          &:hover {
+            background-color: darken(#1dbf73, 10%);
+            box-shadow: 0 0 10px rgba(29, 191, 115, 0.5);
+          }
+        }
+      }
+    }
 
     hr {
       height: 0;
       border: 0.5px solid lightgray;
       margin: 50px 0px;
+      
     }
   }
