@@ -16,13 +16,10 @@ const Gigs = () => {
   const { isLoading, error, data, refetch } = useQuery({
     queryKey: ['gigs'],
     queryFn: () =>
-      newRequest.get(`/gigs${search}&min=${minRef.current.value}&max=${maxRef.current.value}&sort=${sort}`
-      ).then(res=>{
+      newRequest.get(`/gigs${search}&min=${minRef.current.value}&max=${maxRef.current.value}&sort=${sort}`).then((res)=>{
         return res.data
       })
   })
-
-  console.log(data)
 
 
   const reSort = (type) =>{
@@ -42,7 +39,7 @@ const Gigs = () => {
   return (
     <div className='gigs'>
       <div className="container">
-        <span className="breadcrumbs">BELIJASA > SERVIS > </span>
+        <span className="breadcrumbs">BELIJASA {'>'} SERVIS {'>'} </span>
         <h1>Servis Laptop</h1>
         <p>Temukan tukang servis terbaik pilihanmu sendiri</p>
         <div className="menu">
