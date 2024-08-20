@@ -1,80 +1,71 @@
 import React from 'react'
 import "./Messages.scss"
 import { Link } from 'react-router-dom'
+import { QueryClient, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import newRequest from './../../utils/newRequest';
+import moment from "moment"
 
 const Messages = () => {
+const currentUser = JSON.parse(localStorage.getItem("currentUser"))
 
-const currentUser = {
-    id:1,
-    username:"Aldibek",
-    isSeller:true
+const queryClient = useQueryClient()
+const { isLoading, error, data } = useQuery({
+  queryKey: ['conversations'],
+  queryFn: () =>
+    newRequest.get(`/conversations`)
+  .then((res)=>{
+      return res.data
+    })
+})
+
+
+
+const mutation = useMutation({
+  mutationFn: (id) => {
+    return newRequest.put(`/conversations/${id}`)
+  },
+  onSuccess:()=>{
+    queryClient.invalidateQueries(["conversations"])
+  }
+})
+
+const handleRead = (id) => {
+  mutation.mutate(id)
 }
-
-const message = `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe impedit porro officiis. Et culpa eligendi impedit perferendis. Quia numquam nisi excepturi accusamus quo, sapiente, est dolore voluptatibus laudantium neque distinctio!` 
 
   return (
     <div className='messages'>
-      <div className="container">
+      {isLoading ? "sabar cik" : error ? "waduhek error rek" : <div className="container">
         <div className="title">
           <h2>Pesan</h2>
         </div>
         <table>
           <tr>
-            <th>Pembelil</th>
+            <th>Pembeli</th>
             <th>Pesan Terakhir</th>
             <th>Waktu</th>
             <th>Aksi</th>
           </tr>
-          <tr className='active'>
+          {data.map(c=>(
+          <tr className={(currentUser.isSeller && !c.readBySeller) || (!currentUser.isSeller && !c.readByBuyer)
+            && "active"} key={c.id}>
             <td>
-              Luqman Aldi
+              {currentUser.isSeller ? c.buyerId : c.sellerId}
             </td>
-            <td><Link to="/message/123" className='link'>{message.substring(0,100)}...</Link></td>
-            <td>1 hari yang lalu</td>
             <td>
-              <button>Tandai telah Dibaca</button>
+              <Link to={`/message/${c.id}`} className='link'>
+                {c?.lastMessage?.substring(0,100)}...
+              </Link>
             </td>
-          </tr>
-          <tr className='active'>
+            <td>{moment(c.updatedAt).fromNow()}</td>
             <td>
-              Luqman Aldi
-            </td>
-            <td><Link to="/message/123" className='link'>{message.substring(0,100)}...</Link></td>
-            <td>1 hari yang lalu</td>
-            <td>
-              <button>Tandai telah Dibaca</button>
+              {((currentUser.isSeller && !c.readBySeller) || (!currentUser.isSeller && !c.readByBuyer))
+              && (<button onClick={()=>handleRead(c.id)}>Tandai telah Dibaca</button>)}
             </td>
           </tr>
-          <tr>
-            <td>
-              Luqman Aldi
-            </td>
-            <td><Link to="/message/123" className='link'>{message.substring(0,100)}...</Link></td>
-            <td>1 hari yang lalu</td>
-          </tr>
-          <tr>
-            <td>
-              Luqman Aldi
-            </td>
-            <td><Link to="/message/123" className='link'>{message.substring(0,100)}...</Link></td>
-            <td>1 hari yang lalu</td>
-          </tr>
-          <tr>
-            <td>
-              Luqman Aldi
-            </td>
-            <td><Link to="/message/123" className='link'>{message.substring(0,100)}...</Link></td>
-            <td>1 hari yang lalu</td>
-          </tr>
-          <tr>
-            <td>
-              Luqman Aldi
-            </td>
-            <td><Link to="/message/123" className='link'>{message.substring(0,100)}...</Link></td>
-            <td>1 hari yang lalu</td>
-          </tr>
+          ))}
         </table>
-      </div>
+      </div>}
     </div>
   )
 }
